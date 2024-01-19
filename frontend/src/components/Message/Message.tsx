@@ -34,7 +34,7 @@ const Message: React.FC<Props> = ({dataTime, author, message}) => {
           align={'right'}
         >{author}:
         </Typography>
-        <Typography>{dayjs(dataTime).format('DD.MM.YY в HH.mm')}</Typography>
+        <Typography>{dayjs(dataTime).format('DD.MM.YY в HH:mm')}</Typography>
       </Grid>
       <Grid
         sx={{

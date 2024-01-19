@@ -4,3 +4,5 @@ export interface IMessage {
   author: string;
   message: string;
 }
+
+export type IFormMessage = Pick<IMessage, 'author' | 'message'>

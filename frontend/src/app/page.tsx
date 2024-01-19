@@ -1,10 +1,19 @@
 'use client';
 import Message from '@/components/Message/Message';
-import { CircularProgress, Container, Grid } from '@mui/material';
+import {Button, CircularProgress, Container, Grid, styled} from '@mui/material';
 import { JSX } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axiosApi from '@/axiosApi';
 import type { IMessage } from '@/types';
+import NextLink from 'next/link';
+
+const Link = styled(NextLink)({
+  color: 'inherit',
+  textDecoration: 'none',
+  '&hover': {
+    color: 'inherit'
+  }
+});
 
 
 export default function Home() {
@@ -36,13 +45,20 @@ export default function Home() {
           message={item.message}
         />
       </Grid>
-
     ));
   }
 
   return (
     <main>
       <Container>
+        <Button
+          color="primary"
+          component={Link}
+          href='/new-message'
+          sx={{
+            mb: 2
+          }}
+        >New Message</Button>
         <Grid
           container
           spacing={1}
