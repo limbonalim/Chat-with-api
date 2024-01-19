@@ -53,7 +53,7 @@ const NewMessage = () => {
         </Grid>
       </Grid>
 
-      <MessageForm handleSubmit={handleSubmit}/>
+      <MessageForm handleSubmit={handleSubmit} isLoading={mutation.isPending}/>
     </Container>
   );
 };

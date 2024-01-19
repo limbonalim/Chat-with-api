@@ -5,9 +5,10 @@ import type {IFormMessage} from '@/types';
 
 interface Props {
   handleSubmit: (formMessage: IFormMessage) => void;
+  isLoading: boolean
 }
 
-const MessageForm: React.FC<Props> = ({handleSubmit}) => {
+const MessageForm: React.FC<Props> = ({handleSubmit, isLoading}) => {
   const [message, setMessage] = useState<IFormMessage>({
     message: '',
     author: ''
@@ -41,6 +42,7 @@ const MessageForm: React.FC<Props> = ({handleSubmit}) => {
           <TextField
             onChange={onChange}
             value={message.author}
+            required
             label='Author'
             name='author'
             id='author'
@@ -50,6 +52,7 @@ const MessageForm: React.FC<Props> = ({handleSubmit}) => {
           <TextField
             onChange={onChange}
             value={message.message}
+            required
             label='Message'
             name='message'
             id='message'
@@ -59,6 +62,7 @@ const MessageForm: React.FC<Props> = ({handleSubmit}) => {
         </Grid>
         <Grid item>
           <Button
+            disabled={isLoading}
             type='submit'
             variant='contained'
             endIcon={<SendIcon />}
