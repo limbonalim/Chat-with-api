@@ -1,8 +1,8 @@
 'use client';
 import Message from '@/components/Message/Message';
-import {Button, CircularProgress, Container, Grid, styled} from '@mui/material';
-import { JSX } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { Button, CircularProgress, Container, Grid, styled } from '@mui/material';
+import { JSX, useEffect } from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import axiosApi from '@/axiosApi';
 import type { IMessage } from '@/types';
 import NextLink from 'next/link';
@@ -15,15 +15,29 @@ const Link = styled(NextLink)({
   }
 });
 
-
 export default function Home() {
-  const {data: messages, isLoading} = useQuery({
-    queryKey: ['messages'],
-    queryFn: async () => {
-      const response = await axiosApi.get<IMessage[]>('/messages');
-      return response.data;
-    }
+  const getData = async ({pageParam}: { pageParam: string }) => {
+    const response = await axiosApi.get<IMessage[]>('/messages' + pageParam);
+    return response.data;
+  };
+
+  const {data, fetchNextPage, isLoading} = useInfiniteQuery({
+    queryKey: ['prod'],
+    initialPageParam: '',
+    queryFn: getData,
+    getNextPageParam: (lastPage, _, lastPageParam) => {
+      return lastPage.length > 0 ? `?datetime=${lastPage[lastPage.length - 1].dateTime}` : lastPageParam;
+    },
   });
+
+  useEffect(() => {
+    setInterval(() => fetchNextPage(), 5000);
+  });
+
+  let messages;
+  if (data) {
+    messages = data.pages.flat();
+  }
 
   let listOfMessages: JSX.Element | JSX.Element[] = (
     <Grid item sx={{
@@ -54,7 +68,7 @@ export default function Home() {
         <Button
           color="primary"
           component={Link}
-          href='/new-message'
+          href="/new-message"
           sx={{
             mb: 2
           }}
