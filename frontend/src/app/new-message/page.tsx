@@ -36,13 +36,16 @@ const NewMessage = () => {
 
   return (
     <Container>
-      <Grid container alignContent='center' >
-        <Button
-          color="primary"
-          component={Link}
-          href='/'
-        >Back</Button>
-        <Grid item >
+      <Grid container alignItems='center' spacing={2}>
+        <Grid item
+        >
+          <Button
+            color="primary"
+            component={Link}
+            href='/'
+          >Back</Button>
+        </Grid>
+        <Grid item>
           <Typography
             variant='h2'
             mb={2}
