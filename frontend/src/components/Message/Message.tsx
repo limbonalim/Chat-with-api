@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Typography } from '@mui/material';
-import dayjs from 'dayjs';
+import FormatDate from '@/components/UI/FormatDate/FormatDate';
 
 interface Props {
   dataTime: string;
@@ -8,7 +8,9 @@ interface Props {
   message: string;
 }
 
-const Message: React.FC<Props> = ({dataTime, author, message}) => {
+const MemoMessage: React.FC<Props> = React.memo(function Message({dataTime, author, message}) {
+  const date = new FormatDate(dataTime);
+  // console.log(date.getFormatDate())
   return (
     <Grid
       container
@@ -34,7 +36,7 @@ const Message: React.FC<Props> = ({dataTime, author, message}) => {
           align={'right'}
         >{author}:
         </Typography>
-        <Typography>{dayjs(dataTime).format('DD.MM.YY в HH:mm')}</Typography>
+        <Typography>{date.getFormatDate()}</Typography>
       </Grid>
       <Grid
         sx={{
@@ -46,6 +48,6 @@ const Message: React.FC<Props> = ({dataTime, author, message}) => {
       </Grid>
     </Grid>
   );
-};
+});
 
-export default Message;
+export default MemoMessage;

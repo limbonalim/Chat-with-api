@@ -1,11 +1,12 @@
 'use client';
-import Message from '@/components/Message/Message';
+import MemoMessage from '@/components/Message/Message';
 import { Button, CircularProgress, Container, Grid, styled } from '@mui/material';
 import { JSX, useEffect } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import axiosApi from '@/axiosApi';
 import type { IMessage } from '@/types';
 import NextLink from 'next/link';
+
 
 const Link = styled(NextLink)({
   color: 'inherit',
@@ -53,7 +54,7 @@ export default function Home() {
         key={item.id}
         item
       >
-        <Message
+        <MemoMessage
           dataTime={item.dateTime}
           author={item.author}
           message={item.message}
