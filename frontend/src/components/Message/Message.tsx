@@ -10,7 +10,7 @@ interface Props {
 
 const MemoMessage: React.FC<Props> = React.memo(function Message({dataTime, author, message}) {
   const date = new FormatDate(dataTime);
-  // console.log(date.getFormatDate())
+
   return (
     <Grid
       container
